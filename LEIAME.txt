@@ -1,0 +1,34 @@
+LOCADORA DE VEICULOS - Trabalho de LPOO I (2026SEM2)
+Projeto-base com a PARTE 1 (modelo de dominio + repositorio em memoria)
+Autor desta parte: Osmar Nunes Junior (GRR20250999)
+
+ESTRUTURA
+  src/locadora/modelo/   Veiculo, VeiculoI, Automovel, Motocicleta, Van, Locacao, Cliente,
+                         enums (Marca, Estado, Categoria, TipoVeiculo, Modelo*), VeiculoUtil
+  src/locadora/dados/    Repositorio  (clientes e veiculos guardados em memoria)
+  src/locadora/util/     Formatador   (R$XXX,XX, ano, data dd/MM/aaaa)
+  src/locadora/ui/       Atualizavel  (interface das telas) -> AQUI entram as telas das Partes 2, 3 e 4
+  src/locadora/teste/    TesteModelo  (81 testes sem biblioteca externa)
+  docs/                  diagramas de classes (.png, .svg e o codigo-fonte .dot)
+  build.sh / build.bat   compilam e geram o Locadora.jar
+
+COMO ABRIR
+  Eclipse : File > Import > General > Existing Projects into Workspace > escolha a pasta Locadora.
+            (o projeto ja traz .project, .classpath e a codificacao UTF-8)
+  NetBeans: File > New Project > Java with Existing Sources > pasta Locadora, e adicione
+            a pasta "src" em "Source Package Folders". Em Properties > Sources, Encoding: UTF-8.
+
+COMO RODAR OS TESTES DO MODELO (no terminal, dentro da pasta Locadora)
+  javac -encoding UTF-8 -d bin src\locadora\modelo\*.java src\locadora\dados\*.java src\locadora\util\*.java src\locadora\ui\*.java src\locadora\teste\*.java
+  java -cp bin locadora.teste.TesteModelo
+  Resultado esperado no final:  Total: 81 OK, 0 ERRO
+
+COMO GERAR O .JAR (so funciona depois que existir a classe locadora.ui.JanelaPrincipal, da Parte 2)
+  Windows: build.bat        Linux/Mac: ./build.sh        (precisa do JDK)
+  Depois: java -jar Locadora.jar
+
+REGRAS DE CONVIVENCIA DO GRUPO
+  - Cada arquivo .java comeca com o cabecalho de comentario com o GRR e o nome do autor.
+  - Nao altere as classes do pacote modelo sem avisar o Osmar (as outras partes dependem delas).
+  - Telas ficam em locadora.ui e implementam Atualizavel.
+  - Codigo compativel com Java 8, arquivos em UTF-8.

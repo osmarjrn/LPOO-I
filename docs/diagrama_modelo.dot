@@ -1,0 +1,63 @@
+digraph G {
+  graph [rankdir=BT, fontname="Helvetica", nodesep=0.5, ranksep=0.75, pad=0.3, bgcolor="white", label="Diagrama de classes - Modelo de domínio (pacote locadora.modelo)", labelloc=t, fontsize=14];
+  node  [shape=plain, fontname="Helvetica", fontsize=10];
+  edge  [fontname="Helvetica", fontsize=9];
+
+  VeiculoI [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#EEF3FB">
+      <TR><TD><I>&laquo;interface&raquo;</I><BR/><B>VeiculoI</B></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ locar(dias: int, data: Calendar, cliente: Cliente): void<BR ALIGN="LEFT"/>+ vender(): void<BR ALIGN="LEFT"/>+ devolver(): void<BR ALIGN="LEFT"/>+ getEstado(): Estado<BR ALIGN="LEFT"/>+ getMarca(): Marca<BR ALIGN="LEFT"/>+ getCategoria(): Categoria<BR ALIGN="LEFT"/>+ getLocacao(): Locacao<BR ALIGN="LEFT"/>+ getPlaca(): String<BR ALIGN="LEFT"/>+ getAno(): int<BR ALIGN="LEFT"/>+ getValorParaVenda(): double<BR ALIGN="LEFT"/>+ getValorDiariaLocacao(): double<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Veiculo [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFFFFF">
+      <TR><TD><I><B>Veiculo</B></I><BR/><I>{abstract}</I></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">- marca: Marca<BR ALIGN="LEFT"/>- estado: Estado<BR ALIGN="LEFT"/>- locacao: Locacao<BR ALIGN="LEFT"/>- categoria: Categoria<BR ALIGN="LEFT"/>- valorDeCompra: double<BR ALIGN="LEFT"/>- placa: String<BR ALIGN="LEFT"/>- ano: int<BR ALIGN="LEFT"/></TD></TR>
+      <HR/>
+      <TR><TD ALIGN="LEFT">+ Veiculo(marca, estado, locacao, categoria,<BR ALIGN="LEFT"/>&nbsp;&nbsp;valorDeCompra, placa, ano)<BR ALIGN="LEFT"/>+ calcularValorParaVenda(valor, idade): double {static}<BR ALIGN="LEFT"/><I>+ getValorDiariaLocacao(): double {abstract}</I><BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Automovel [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD><B>Automovel</B></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">- modelo: ModeloAutomovel<BR ALIGN="LEFT"/></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">+ getModelo(): ModeloAutomovel<BR ALIGN="LEFT"/>+ getValorDiariaLocacao(): double<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+  Motocicleta [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD><B>Motocicleta</B></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">- modelo: ModeloMotocicleta<BR ALIGN="LEFT"/></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">+ getModelo(): ModeloMotocicleta<BR ALIGN="LEFT"/>+ getValorDiariaLocacao(): double<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+  Van [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD><B>Van</B></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">- modelo: ModeloVan<BR ALIGN="LEFT"/></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">+ getModelo(): ModeloVan<BR ALIGN="LEFT"/>+ getValorDiariaLocacao(): double<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Locacao [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD><B>Locacao</B></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">- dias: int<BR ALIGN="LEFT"/>- valor: double<BR ALIGN="LEFT"/>- data: Calendar<BR ALIGN="LEFT"/>- cliente: Cliente<BR ALIGN="LEFT"/></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">+ Locacao(dias, valor, data, cliente)<BR ALIGN="LEFT"/>+ getDias(): int<BR ALIGN="LEFT"/>+ getValor(): double<BR ALIGN="LEFT"/>+ getData(): Calendar<BR ALIGN="LEFT"/>+ getCliente(): Cliente<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Cliente [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3">
+      <TR><TD><B>Cliente</B></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">- nome: String<BR ALIGN="LEFT"/>- sobrenome: String<BR ALIGN="LEFT"/>- rg: String<BR ALIGN="LEFT"/>- cpf: String<BR ALIGN="LEFT"/>- endereco: String<BR ALIGN="LEFT"/></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">+ getters e setters<BR ALIGN="LEFT"/>+ getNomeCompleto(): String<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  { rank=same; VeiculoI; Cliente; }
+  { rank=same; Veiculo; Locacao; }
+  Veiculo -> VeiculoI [arrowhead=empty, style=dashed];
+  Automovel -> Veiculo [arrowhead=empty];
+  Motocicleta -> Veiculo [arrowhead=empty];
+  Van -> Veiculo [arrowhead=empty];
+  Veiculo -> Locacao [arrowhead=vee, taillabel="0..1", headlabel="", label=" locacao"];
+  Locacao -> Cliente [arrowhead=vee, taillabel="*", headlabel="1", label=" cliente"];
+}

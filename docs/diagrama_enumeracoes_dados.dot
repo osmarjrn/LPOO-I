@@ -1,0 +1,44 @@
+digraph G {
+  graph [rankdir=BT, fontname="Helvetica", nodesep=0.5, ranksep=0.75, pad=0.3, bgcolor="white", label="Diagrama de classes - Enumerações e camada de dados", labelloc=t, fontsize=14];
+  node  [shape=plain, fontname="Helvetica", fontsize=10];
+  edge  [fontname="Helvetica", fontsize=9];
+
+  Repositorio [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFF8E6">
+      <TR><TD><B>Repositorio</B><BR/><I>(dados em memória)</I></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">- clientes: List&lt;Cliente&gt;<BR ALIGN="LEFT"/>- veiculos: List&lt;Veiculo&gt;<BR ALIGN="LEFT"/></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">+ getInstance(): Repositorio {static}<BR ALIGN="LEFT"/>+ adicionarCliente(c): boolean<BR ALIGN="LEFT"/>+ removerCliente(c): void<BR ALIGN="LEFT"/>+ buscarClientes(termo): List&lt;Cliente&gt;<BR ALIGN="LEFT"/>+ clientePossuiVeiculoLocado(c): boolean<BR ALIGN="LEFT"/>+ adicionarVeiculo(v): void<BR ALIGN="LEFT"/>+ listarDisponiveis(tipo, marca, categoria)<BR ALIGN="LEFT"/>+ listarLocados(): List&lt;Veiculo&gt;<BR ALIGN="LEFT"/>+ locar(veiculo, dias, data, cliente): void<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  VeiculoUtil [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#FFF8E6">
+      <TR><TD><B>VeiculoUtil</B></TD></TR><HR/>
+      <TR><TD ALIGN="LEFT">+ tipoDe(v): TipoVeiculo {static}<BR ALIGN="LEFT"/>+ descricaoModelo(v): String {static}<BR ALIGN="LEFT"/>+ modelosDoTipo(tipo): Object[] {static}<BR ALIGN="LEFT"/></TD></TR>
+    </TABLE>>];
+
+  Marca        [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F1F8E9"><TR><TD><I>&laquo;enumeration&raquo;</I><BR/><B>Marca</B></TD></TR><HR/><TR><TD ALIGN="LEFT">VW, GM, FIAT, HONDA, MERCEDES,<BR ALIGN="LEFT"/>FORD, TOYOTA, RENAULT, YAMAHA,<BR ALIGN="LEFT"/>SUZUKI, BMW<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Estado       [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F1F8E9"><TR><TD><I>&laquo;enumeration&raquo;</I><BR/><B>Estado</B></TD></TR><HR/><TR><TD ALIGN="LEFT">NOVO, LOCADO,<BR ALIGN="LEFT"/>DISPONIVEL, VENDIDO<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  Categoria    [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F1F8E9"><TR><TD><I>&laquo;enumeration&raquo;</I><BR/><B>Categoria</B></TD></TR><HR/><TR><TD ALIGN="LEFT">POPULAR, INTERMEDIARIO,<BR ALIGN="LEFT"/>LUXO<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  TipoVeiculo  [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F1F8E9"><TR><TD><I>&laquo;enumeration&raquo;</I><BR/><B>TipoVeiculo</B></TD></TR><HR/><TR><TD ALIGN="LEFT">AUTOMOVEL, VAN,<BR ALIGN="LEFT"/>MOTOCICLETA<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  ModeloAutomovel   [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F1F8E9"><TR><TD><I>&laquo;enumeration&raquo;</I><BR/><B>ModeloAutomovel</B></TD></TR><HR/><TR><TD ALIGN="LEFT">GOL, CELTA, PALIO, UNO, ONIX,<BR ALIGN="LEFT"/>KA, SANDERO, CIVIC, COROLLA,<BR ALIGN="LEFT"/>CLASSE_C<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  ModeloMotocicleta [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F1F8E9"><TR><TD><I>&laquo;enumeration&raquo;</I><BR/><B>ModeloMotocicleta</B></TD></TR><HR/><TR><TD ALIGN="LEFT">CG_125, BIZ_125, CBR_500,<BR ALIGN="LEFT"/>XRE_300, FAZER_250, NINJA_400<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+  ModeloVan         [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" BGCOLOR="#F1F8E9"><TR><TD><I>&laquo;enumeration&raquo;</I><BR/><B>ModeloVan</B></TD></TR><HR/><TR><TD ALIGN="LEFT">KOMBI, SPRINTER, DUCATO,<BR ALIGN="LEFT"/>MASTER, TRANSIT<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+
+  Veiculo [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD><I><B>Veiculo</B></I><BR/>(ver diagrama do modelo)</TD></TR></TABLE>>];
+  Cliente [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD><B>Cliente</B><BR/>(ver diagrama do modelo)</TD></TR></TABLE>>];
+  Automovel   [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD><B>Automovel</B></TD></TR></TABLE>>];
+  Motocicleta [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD><B>Motocicleta</B></TD></TR></TABLE>>];
+  Van         [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD><B>Van</B></TD></TR></TABLE>>];
+
+  { rank=same; Repositorio; VeiculoUtil; }
+  Repositorio -> Veiculo [arrowhead=vee, arrowtail=odiamond, dir=both, taillabel="1", headlabel="*"];
+  Repositorio -> Cliente [arrowhead=vee, arrowtail=odiamond, dir=both, taillabel="1", headlabel="*"];
+  VeiculoUtil -> Veiculo [arrowhead=vee, style=dashed, label=" «uses»"];
+  Veiculo -> Marca [arrowhead=vee];
+  Veiculo -> Estado [arrowhead=vee];
+  Veiculo -> Categoria [arrowhead=vee];
+  VeiculoUtil -> TipoVeiculo [arrowhead=vee, style=dashed];
+  Automovel -> ModeloAutomovel [arrowhead=vee];
+  Motocicleta -> ModeloMotocicleta [arrowhead=vee];
+  Van -> ModeloVan [arrowhead=vee];
+}
