@@ -58,9 +58,9 @@ public class PainelIncluirVeiculo extends JPanel implements Atualizavel {
     /** Seletor da marca do veículo. */
     private final JComboBox<Marca> comboMarca = new JComboBox<>(Marca.values());
 
-    /** Seletor do estado inicial (apenas NOVO e DISPONIVEL). */
+    /** Seletor do estado inicial (apenas DISPONIVEL). */
     private final JComboBox<Estado> comboEstado = new JComboBox<>(
-            new Estado[]{Estado.DISPONIVEL, Estado.NOVO});
+            new Estado[]{Estado.DISPONIVEL});
 
     /** Seletor da categoria do veículo. */
     private final JComboBox<Categoria> comboCategoria = new JComboBox<>(Categoria.values());
