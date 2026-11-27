@@ -1,6 +1,6 @@
 /*
- * GRR20252934
- * GABRIEL DE ALMEIDA
+ * GRR20251118
+ * CHRISTIAN GUILHERME SOARES SANT'ANA
  */
 package locadora.ui;
 
@@ -16,99 +16,103 @@ import locadora.modelo.Marca;
 import locadora.modelo.TipoVeiculo;
 
 /**
- * STUB PROVISÓRIO do FiltroVeiculosPanel (Parte 3, do Christian), só para a
- * tela de locar poder ser compilada e testada antes da entrega oficial.
- * Segue exatamente o contrato do roteiro. Quando a versão do Christian
- * existir, apague este arquivo e use a dele.
+ * Painel de filtros reutilizado nas telas de locação e venda de veículos.
+ * Contém três caixas de seleção (Tipo, Marca e Categoria), cada uma com
+ * "Todos" como primeira opção.
  *
- * <p>Três combos (Tipo, Marca e Categoria), cada um com "Todos" como
- * primeiro item. {@code aoMudar.run()} é chamado sempre que algum combo
- * mudar; os getters devolvem {@code null} quando "Todos" está
- * selecionado.</p>
- *
- * @author Gabriel de Almeida
+ * @author Christian Guilherme Soares Sant'ana
  */
 public class FiltroVeiculosPanel extends JPanel {
 
-    /** Texto do primeiro item de cada combo. */
+    /** Texto padrão para indicar ausência de filtro. */
     private static final String TODOS = "Todos";
 
-    /** Combo do tipo de veículo. */
-    private final JComboBox<Object> comboTipo = criarCombo(TipoVeiculo.values());
+    /** Combo de seleção do tipo de veículo. */
+    private final JComboBox<Object> comboTipo;
 
-    /** Combo da marca. */
-    private final JComboBox<Object> comboMarca = criarCombo(Marca.values());
+    /** Combo de seleção da marca do veículo. */
+    private final JComboBox<Object> comboMarca;
 
-    /** Combo da categoria. */
-    private final JComboBox<Object> comboCategoria = criarCombo(Categoria.values());
+    /** Combo de seleção da categoria do veículo. */
+    private final JComboBox<Object> comboCategoria;
 
     /**
-     * Cria o filtro.
+     * Cria o painel de filtros e registra a ação a ser executada sempre que
+     * qualquer opção for alterada.
      *
-     * @param aoMudar ação chamada sempre que algum combo mudar
+     * @param aoMudar ação executada quando algum combo muda de valor
      */
-    public FiltroVeiculosPanel(Runnable aoMudar) {
+    public FiltroVeiculosPanel(final Runnable aoMudar) {
         super(new FlowLayout(FlowLayout.LEFT, 10, 5));
         setBorder(BorderFactory.createTitledBorder("Filtros"));
+
+        comboTipo = criarComboComTodos(TipoVeiculo.values());
+        comboMarca = criarComboComTodos(Marca.values());
+        comboCategoria = criarComboComTodos(Categoria.values());
+
         add(new JLabel("Tipo:"));
         add(comboTipo);
         add(new JLabel("Marca:"));
         add(comboMarca);
         add(new JLabel("Categoria:"));
         add(comboCategoria);
-        // o ouvinte entra depois de montar os combos, para não disparar na criação
-        ActionListener listener = new ActionListener() {
+
+        ActionListener ouvinte = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                aoMudar.run();
+                if (aoMudar != null) {
+                    aoMudar.run();
+                }
             }
         };
-        comboTipo.addActionListener(listener);
-        comboMarca.addActionListener(listener);
-        comboCategoria.addActionListener(listener);
+
+        comboTipo.addActionListener(ouvinte);
+        comboMarca.addActionListener(ouvinte);
+        comboCategoria.addActionListener(ouvinte);
     }
 
     /**
-     * Retorna o tipo escolhido.
+     * Retorna o tipo de veículo selecionado.
      *
-     * @return tipo, ou {@code null} se estiver em "Todos"
+     * @return tipo selecionado, ou {@code null} se "Todos" estiver marcado
      */
     public TipoVeiculo getTipo() {
-        Object item = comboTipo.getSelectedItem();
-        return (item instanceof TipoVeiculo) ? (TipoVeiculo) item : null;
+        Object selecionado = comboTipo.getSelectedItem();
+        return (selecionado instanceof TipoVeiculo) ? (TipoVeiculo) selecionado : null;
     }
 
     /**
-     * Retorna a marca escolhida.
+     * Retorna a marca selecionada.
      *
-     * @return marca, ou {@code null} se estiver em "Todos"
+     * @return marca selecionada, ou {@code null} se "Todos" estiver marcado
      */
     public Marca getMarca() {
-        Object item = comboMarca.getSelectedItem();
-        return (item instanceof Marca) ? (Marca) item : null;
+        Object selecionado = comboMarca.getSelectedItem();
+        return (selecionado instanceof Marca) ? (Marca) selecionado : null;
     }
 
     /**
-     * Retorna a categoria escolhida.
+     * Retorna a categoria selecionada.
      *
-     * @return categoria, ou {@code null} se estiver em "Todos"
+     * @return categoria selecionada, ou {@code null} se "Todos" estiver marcado
      */
     public Categoria getCategoria() {
-        Object item = comboCategoria.getSelectedItem();
-        return (item instanceof Categoria) ? (Categoria) item : null;
+        Object selecionado = comboCategoria.getSelectedItem();
+        return (selecionado instanceof Categoria) ? (Categoria) selecionado : null;
     }
 
     /**
-     * Cria um combo com "Todos" na frente dos valores.
+     * Monta um JComboBox contendo "Todos" na primeira posição seguido dos
+     * valores informados.
      *
-     * @param valores valores do enum
-     * @return combo preenchido, com "Todos" selecionado
+     * @param itens valores do enum a adicionar
+     * @return combo preenchido
      */
-    private static JComboBox<Object> criarCombo(Object[] valores) {
+    private static JComboBox<Object> criarComboComTodos(Object[] itens) {
         JComboBox<Object> combo = new JComboBox<>();
         combo.addItem(TODOS);
-        for (Object valor : valores) {
-            combo.addItem(valor);
+        for (Object item : itens) {
+            combo.addItem(item);
         }
         return combo;
     }

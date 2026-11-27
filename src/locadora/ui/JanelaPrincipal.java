@@ -6,10 +6,7 @@ package locadora.ui;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -21,12 +18,6 @@ import javax.swing.event.ChangeListener;
  * aba, a janela chama {@link Atualizavel#atualizar()} do painel mostrado,
  * então cada tela recarrega os dados do repositório (por exemplo, a tabela de
  * Locar some com um veículo vendido na aba Vender).
- *
- * <p>Esta versão só depende das Partes 1, 2 e 4. As abas "Incluir veículo" e
- * "Vender" (Parte 3, do Christian) usam painéis provisórios; quando as telas
- * existirem, troque {@code criarAbaIncluir()} e {@code criarAbaVender()} por
- * {@code return new PainelIncluirVeiculo();} e
- * {@code return new PainelVenderVeiculo();}.</p>
  *
  * @author Cezar Anthonio
  */
@@ -64,23 +55,21 @@ public class JanelaPrincipal extends JFrame {
     }
 
     /**
-     * Cria a aba Incluir veículo. <b>Parte 3:</b> troque por
-     * {@code return new PainelIncluirVeiculo();} quando a tela existir.
+     * Cria a aba Incluir veículo.
      *
      * @return painel da aba
      */
     private Component criarAbaIncluir() {
-        return new PainelProvisorio("Tela de incluir veículo (Parte 3) ainda não integrada.");
+        return new PainelIncluirVeiculo();
     }
 
     /**
-     * Cria a aba Vender. <b>Parte 3:</b> troque por
-     * {@code return new PainelVenderVeiculo();} quando a tela existir.
+     * Cria a aba Vender.
      *
      * @return painel da aba
      */
     private Component criarAbaVender() {
-        return new PainelProvisorio("Tela de vender veículo (Parte 3) ainda não integrada.");
+        return new PainelVenderVeiculo();
     }
 
     /**
@@ -95,24 +84,5 @@ public class JanelaPrincipal extends JFrame {
                 new JanelaPrincipal().setVisible(true);
             }
         });
-    }
-
-    /** Painel temporário que ocupa o lugar de uma tela que ainda não existe. */
-    private static class PainelProvisorio extends JPanel implements Atualizavel {
-
-        /**
-         * Cria o painel provisório.
-         *
-         * @param texto mensagem mostrada no centro
-         */
-        PainelProvisorio(String texto) {
-            super(new GridBagLayout());
-            add(new JLabel(texto));
-        }
-
-        @Override
-        public void atualizar() {
-            // nada a recarregar
-        }
     }
 }
